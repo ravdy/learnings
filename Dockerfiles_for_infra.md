@@ -69,3 +69,23 @@ RUN chmod +x /app/example_infra/common/*.sh
 
 CMD bash
 ```
+
+One more to setup Maven 
+```
+FROM amazoncorretto:8
+LABEL org.opencontainers.image.vendor="example"
+LABEL org.opencontainers.image.title="example Maven 3.6 (JDK 8)"
+
+ARG MAVEN_VER=3.6.3
+
+RUN yum -y update && yum -y install tar gzip zip openssh-clients.x86_64 iputils telnet git
+RUN curl  https://archive.apache.org/dist/maven/maven-3/${MAVEN_VER}/binaries/apache-maven-${MAVEN_VER}-bin.tar.gz -o apache-maven-${MAVEN_VER}-bin.tar.gz
+RUN tar -xzf apache-maven-${MAVEN_VER}-bin.tar.gz && \
+   mv /apache-maven-${MAVEN_VER} /opt/ && \
+   rm apache-maven-${MAVEN_VER}-bin.tar.gz
+
+ENV MAVEN_HOME=/opt/apache-maven-${MAVEN_VER}
+ENV PATH="/opt/apache-maven-${MAVEN_VER}/bin:${PATH}"
+
+WORKDIR /app
+```

@@ -1,4 +1,4 @@
-# Docker executers for Infrastructure
+# Docker executor for Infrastructure
 
 We are using few docker files which needs used as executers. for that we use below docker files 
 
